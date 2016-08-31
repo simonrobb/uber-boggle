@@ -6,7 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 
 module.exports = (options) => Object.assign(baseConfig(options), {
-  devtool: 'source-map',
+  devtool: 'eval',
   entry: [
     'babel-polyfill',
     'webpack-dev-server/client?http://localhost:8080',
@@ -19,9 +19,6 @@ module.exports = (options) => Object.assign(baseConfig(options), {
     filename: 'bundle.js',
     publicPath: 'http://localhost:8080/'
   },
-  babelQuery: {
-    presets: ['react-hmre'],
-  },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
@@ -32,5 +29,8 @@ module.exports = (options) => Object.assign(baseConfig(options), {
       'process.env.NODE_ENV': JSON.stringify("development") 
     }),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  devServer: {
+      contentBase: options.srcPath
+  }
 })
