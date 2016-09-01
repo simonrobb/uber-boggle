@@ -1,0 +1,9 @@
+<div class="{{styles.board}}">
+  {{#each controller.config.rows}}
+    <div class="{{../styles.row}}">
+      {{#each this}}
+        <div class="{{../../styles.tile}}">{{this}}</div>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>

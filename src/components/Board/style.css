@@ -1,0 +1,22 @@
+.board {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  background: white;
+  border: 1px solid #ccc;
+
+  .row {
+    flex: 1 1 auto;
+    display: flex;
+  }
+
+  .tile {
+    flex: 1 1 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 600;
+  }
+}

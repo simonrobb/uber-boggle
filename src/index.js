@@ -12,5 +12,5 @@ import Main from './containers/Main'
 
 $(document).ready(() => {
     const main = new Main() 
-    $('#root').html(main.render({ title: 'Boggle' }))
+    main.render({ title: 'Boggle' }, $('#root'))
 })
