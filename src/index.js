@@ -1,3 +1,16 @@
-import { foo } from './FooBarBaz'
+import $ from 'jquery'
+import Main from './containers/Main'
 
-console.log(foo)
+/**
+ * Application entry point
+ * 
+ * Our application only has one top-level view, 
+ * load it into the dom.
+ * This task should be assigned to a routing library in a 
+ * more advanced application.
+ */
+
+$(document).ready(() => {
+    const main = new Main() 
+    $('#root').html(main.render({ title: 'Boggle' }))
+})

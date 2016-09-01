@@ -1,0 +1,11 @@
+<h1>Boggle</h1>
+
+<div class="{{styles.board}}">
+  {{#each board.rows}}
+    <div class="{{../styles.row}}">
+      {{#each this}}
+        <div class="{{../../styles.tile}}">{{this}}</div>
+      {{/each}}
+    </div>
+  {{/each}}
+</div>

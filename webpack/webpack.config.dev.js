@@ -8,7 +8,6 @@ const baseConfig = require('./webpack.config.base');
 module.exports = (options) => Object.assign(baseConfig(options), {
   devtool: 'eval',
   entry: [
-    'babel-polyfill',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     path.join(options.srcPath, 'index.js')
