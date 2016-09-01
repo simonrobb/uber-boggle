@@ -12,11 +12,16 @@ import styles from './style.css'
 const BOARD_SIZE = 4
 
 class Main {
-  constructor() {
-    this.newGame()
+  constructor(container) {
+    this.container = container
 
     // Bind event handler to the context of this class
     this.handleNewGameClick = this.handleNewGameClick.bind(this)
+    this.handleSubmitWordClick = this.handleSubmitWordClick.bind(this)
+
+    // Initialize with a new game 
+    this.newGame()
+    this.render()
   }
 
 
@@ -63,7 +68,7 @@ class Main {
    * Render the component and create child components
    */
 
-  render(data, container) {
+  render() {
     const merged = {
       controller: this,
       styles
@@ -71,13 +76,14 @@ class Main {
 
     // Create the view
     const html = view(merged)
-    container.html(html)
+    this.container.html(html)
 
     // Attach events
-    $('#new-game', container).on('click', this.handleNewGameClick)
+    $('#new-game', this.container).on('click', this.handleNewGameClick)
+    $('#submit-word', this.container).on('click', this.handleSubmitWordClick)
 
     // Create child components
-    this.board = new Board(this.boardConfig, $('#board', container))
+    this.board = new Board(this.boardConfig, $('#board', this.container))
   }
 
 
@@ -103,6 +109,16 @@ class Main {
 
   handleNewGameClick() {
     this.newGame()
+  }
+
+
+  /**
+   * When the submit word button is clicked
+   */
+
+  handleSubmitWordClick() {
+    const word = $('#word', this.container).val()
+    console.log(word)
   }
 }
 
