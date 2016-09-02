@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import Words from '../../components/Words'
 import Board from '../../components/Board'
 
 import view from './index.handlebars'
@@ -118,7 +119,11 @@ class Main {
 
   handleSubmitWordClick() {
     const word = $('#word', this.container).val()
-    console.log(word)
+    Words
+      .check(word)
+      .then(isValid => {
+        console.log(isValid)
+      })
   }
 }
 
