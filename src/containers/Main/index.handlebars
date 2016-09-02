@@ -5,12 +5,22 @@
   </div>
 
   <div class="longform {{styles.gameInactiveOnly}}">
-    <h2>Time to play boggle!</h2>
-    <p>You have 60 seconds to find as many words as you can.</p>
-    <p>Type a word and press the enter key. Words can only be entered once and must be real English words!</p>
-    <p>
-      <button id="new-game" type="button">New game</button>
-    </p>
+    {{#if controller.dirty}}
+      <h2>Nice work!</h2>
+      <p>You found <strong>{{controller.words.length}}</strong> words and scored <strong>{{controller.score}}</strong> points.</p>
+      <p>Think you can do better?</p>
+      <p>
+        <button id="new-game" type="button">Play again!</button>
+      </p>
+    {{else}}
+      <h2>Time to play boggle!</h2>
+      <p>You have 60 seconds to find as many words as you can.</p>
+      <p>Type a word and press the enter key. Words can only be entered once and must be real English words!</p>
+      <p>
+        <button id="new-game" type="button">Start</button>
+      </p>
+    {{/if}}
+      
   </div>
 
   <div class="{{styles.gameActiveOnly}}">

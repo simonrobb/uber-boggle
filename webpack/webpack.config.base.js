@@ -1,5 +1,6 @@
 const autoprefixer = require('autoprefixer')
 const postcssNested = require('postcss-nested')
+const postcssColorFunction = require('postcss-color-function')
 
 module.exports = options => ({
 	progress: true,
@@ -7,7 +8,8 @@ module.exports = options => ({
 	postcss: () => {
     return [
       postcssNested,
-      autoprefixer
+      autoprefixer,
+      postcssColorFunction
     ];
   },
 	resolve: {

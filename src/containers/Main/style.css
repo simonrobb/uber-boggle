@@ -116,6 +116,14 @@ button {
   &:disabled {
     opacity: 0.3;
   }
+
+  &:hover {
+    background: color(#19C595 shade(10));
+  }
+
+  &:active {
+    background: color(#19C595 shade(20));
+  }
 }
 
 :focus {
@@ -139,7 +147,8 @@ body {
  */
 
 .container {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   margin: 0 auto;
 
   &:not(.gameActive) {

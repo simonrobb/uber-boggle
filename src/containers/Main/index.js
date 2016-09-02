@@ -10,9 +10,12 @@ import styles from './style.css'
 import logo from './logo.svg'
 
 
+
 /**
  * The main boggle view
  */
+
+const GAME_LENGTH = 10
 
 class Main {
   constructor(container) {
@@ -23,6 +26,7 @@ class Main {
     this.handleInputFormSubmit = this.handleInputFormSubmit.bind(this)
 
     // Initialize
+    this.dirty = false
     this.gameActive = false
     this.score = 0
     this.render()
@@ -34,6 +38,7 @@ class Main {
    */
 
   newGame() {
+    this.dirty = true
     this.gameActive = true
     this.generateBoard()
     this.resetTimer()
@@ -42,6 +47,16 @@ class Main {
     this.updateChildren()
     this.render()
     this.resetWordInput()
+  }
+
+
+  /**
+   * Ends a game
+   */
+
+  endGame() {
+    this.gameActive = false
+    this.render()
   }
 
 
@@ -59,7 +74,8 @@ class Main {
    */
 
   resetTimer() {
-    this.time = 0
+    this.time = GAME_LENGTH
+    setTimeout(() => this.endGame(), GAME_LENGTH * 1000)
   }
 
 
