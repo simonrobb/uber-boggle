@@ -52,7 +52,9 @@ table {
  * Typographic styles
  */
 
-body {
+body,
+input,
+button {
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -60,8 +62,60 @@ h1 {
   font-size: 24px;
 }
 
+h2 {
+  font-size: 20px;
+}
+
 p {
-  font-size: 14px;
+  font-size: 16px;
+}
+
+strong {
+  font-weight: 600;
+}
+
+:global(.longform) {
+  h2 {
+    margin-top: 20px;
+  }
+
+  p {
+    line-height: 20px;
+    margin-top: 16px;
+  }
+}
+
+
+/**
+ * Form styles
+ */
+
+input {
+  padding: 0 10px;
+  height: 42px;
+  border: 1px solid transparent;
+  border-right: none;
+  border-radius: 5px;
+  background: white;
+  font-size: 18px;
+
+  &:focus {
+    border-color: #19C595;
+  }
+}
+
+button {
+  height: 42px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background: #19C595;
+  color: white;
+}
+
+:focus {
+  outline: none;
 }
 
 
@@ -83,14 +137,53 @@ body {
 .container {
   width: 400px;
   margin: 0 auto;
+
+  &:not(.gameActive) {
+    .gameActiveOnly {
+      display: none;
+    }
+  }
+
+  &.gameActive {
+    .gameInactiveOnly {
+      display: none;
+    }
+  }
 }
 
 .topBar {
   display: flex;
   align-items: flex-end;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+
+  img {
+    width: 100px;
+    margin-bottom: -13px;
+  }
+
+  p {
+    font-size: 18px;
+  }
 
   .right {
     margin-left: auto;
+  }
+}
+
+.inputForm {
+  display: flex;
+  margin-top: 20px;
+
+  input {
+    flex: 1 1 auto;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  button {
+    width: 42px;
+    padding: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }

@@ -38,6 +38,10 @@ module.exports = options => ({
 					'postcss-loader',
 				]
 			},
+      {
+        test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader',
+      },
 			{ 
 				test: /\.handlebars$/, 
 				loader: "handlebars-loader" 

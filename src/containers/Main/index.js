@@ -7,6 +7,7 @@ import { Board, BoardIndex } from '../../components/Board'
 
 import view from './index.handlebars'
 import styles from './style.css'
+import logo from './logo.svg'
 
 
 /**
@@ -21,8 +22,9 @@ class Main {
     this.handleNewGameClick = this.handleNewGameClick.bind(this)
     this.handleInputFormSubmit = this.handleInputFormSubmit.bind(this)
 
-    // Initialize with a new game 
-    this.newGame()
+    // Initialize
+    this.gameActive = false
+    this.score = 0
     this.render()
   }
 
@@ -32,11 +34,14 @@ class Main {
    */
 
   newGame() {
+    this.gameActive = true
     this.generateBoard()
     this.resetTimer()
     this.resetScore()
     this.resetWords()
     this.updateChildren()
+    this.render()
+    this.resetWordInput()
   }
 
 
@@ -77,22 +82,31 @@ class Main {
 
 
   /**
-   * 
+   * Reset word input
+   */
+
+  resetWordInput() {
+    $('#word').val('').focus()
+  }
+
+
+  /**
+   * Add and score a valid word
    */
 
   addWord(word) {
-    this.words.push(word)
+    this.words.unshift(word)
     this.score += word.length
   }
 
 
   /**
-   * 
+   * Validate word, and add/score if valid
    */
 
   submitWord(word) {
     const callback = (err, word) => {
-      $('#word').val('').focus()
+      this.resetWordInput()
 
       if (err) {
         return alert(err)
@@ -125,15 +139,21 @@ class Main {
   render() {
     const merged = {
       controller: this,
-      styles
+      styles,
+      logo
     }
 
     // Create the view
     const html = view(merged)
     this.container.html(html)
 
+    if (this.gameActive) {
+      this.container.children().eq(0).addClass(styles.gameActive)
+    }
+
     // Attach events
     $('#new-game', this.container).on('click', this.handleNewGameClick)
+    $('#word', this.container).on('change', this.handleWordInputChange)
     $('#input-form', this.container).on('submit', this.handleInputFormSubmit)
 
     // Create child components
@@ -175,6 +195,15 @@ class Main {
 
   handleNewGameClick() {
     this.newGame()
+  }
+
+
+  /**
+   * When the value of the word input changes
+   */
+
+  handleWordInputChange(event) {
+    console.log(event);
   }
 
 

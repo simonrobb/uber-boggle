@@ -1,19 +1,28 @@
 <div class="{{styles.container}}">
   <div class="{{styles.topBar}}">
-    <h1>Boggle</h1>
+    <h1><img src="{{logo}}" /></h1>
     <div id="score" class="{{styles.right}}"></div>  
   </div>
 
-  <div id="board"></div>
-
-  <div>
-    <button id="new-game" type="button">New game</button>
+  <div class="longform {{styles.gameInactiveOnly}}">
+    <h2>Time to play boggle!</h2>
+    <p>You have 60 seconds to find as many words as you can.</p>
+    <p>Type a word and press the enter key. Words can only be entered once and must be real English words!</p>
+    <p>
+      <button id="new-game" type="button">New game</button>
+    </p>
   </div>
 
-  <form id="input-form">
-    <input id="word" type="text" />
-    <button type="submit">Submit word</button>
-  </form>
+  <div class="{{styles.gameActiveOnly}}">
+    <div id="board" ></div>
 
-  <div id="word-list"></div>
+    <form id="input-form" class="{{styles.inputForm}}">
+      <input id="word" type="text" placeholder="Enter a word" />
+      <button type="submit">
+        <span class="material-icons">check</span>
+      </button>
+    </form>
+
+    <div id="word-list"></div>
+  </div>
 </div>

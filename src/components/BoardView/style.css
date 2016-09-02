@@ -10,6 +10,10 @@
   .row {
     flex: 1 1 auto;
     display: flex;
+
+    & + .row {
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
   }
 
   .tile {
@@ -17,7 +21,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 600;
+
+    & + .tile {
+      border-left: 1px solid rgba(0,0,0,0.08);
+    }
   }
 }
