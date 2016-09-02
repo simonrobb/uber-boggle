@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import Words from '../../components/Words'
-import Board from '../../components/Board'
+import BoardView from '../../components/BoardView'
+import { Board, BoardIndex } from '../../components/Board'
 
 import view from './index.handlebars'
 import styles from './style.css'
@@ -9,8 +10,6 @@ import styles from './style.css'
 /**
  * The main boggle view
  */
-
-const BOARD_SIZE = 4
 
 class Main {
   constructor(container) {
@@ -42,17 +41,7 @@ class Main {
    */
 
   generateBoard() {
-    const rows = new Array(BOARD_SIZE).fill('x').map(
-      () => new Array(BOARD_SIZE).fill('x').map(
-        () => {
-          return (Math.round(Math.random()*25) + 10).toString(36)
-        }
-      )
-    )
-
-    this.boardConfig = {
-      rows: rows
-    }
+    this.board = new Board()
   }
 
 
@@ -84,7 +73,7 @@ class Main {
     $('#submit-word', this.container).on('click', this.handleSubmitWordClick)
 
     // Create child components
-    this.board = new Board(this.boardConfig, $('#board', this.container))
+    this.boardEl = new BoardView(this.board, $('#board', this.container))
   }
 
 
@@ -93,9 +82,9 @@ class Main {
    */
 
   updateChildren() {
-    if (this.board) {
-      this.board.setConfig(this.boardConfig)
-      this.board.render()
+    if (this.boardEl) {
+      this.boardEl.setConfig(this.board)
+      this.boardEl.render()
     }
 
     if (this.timer) {
@@ -119,11 +108,12 @@ class Main {
 
   handleSubmitWordClick() {
     const word = $('#word', this.container).val()
-    Words
+    console.log(this.board.validateWord(word))
+    /* Words
       .check(word)
       .then(isValid => {
         console.log(isValid)
-      })
+      }) */
   }
 }
 
