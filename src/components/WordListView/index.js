@@ -15,6 +15,7 @@ class WordListView {
 
   setWords(words) {
     this.words = words
+    this.render()
   }
 
   render() {

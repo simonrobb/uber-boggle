@@ -15,6 +15,7 @@ class BoardView {
 
   setBoard(board) {
     this.board = board
+    this.render()
   }
 
   render() {

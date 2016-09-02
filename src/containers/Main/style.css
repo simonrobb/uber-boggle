@@ -112,6 +112,10 @@ button {
   font-size: 16px;
   background: #19C595;
   color: white;
+
+  &:disabled {
+    opacity: 0.3;
+  }
 }
 
 :focus {

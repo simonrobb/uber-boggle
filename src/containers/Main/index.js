@@ -147,13 +147,16 @@ class Main {
     const html = view(merged)
     this.container.html(html)
 
+    // Set game state in ui
     if (this.gameActive) {
       this.container.children().eq(0).addClass(styles.gameActive)
+    } else {
+      this.container.children().eq(0).removeClass(styles.gameActive)
     }
 
     // Attach events
     $('#new-game', this.container).on('click', this.handleNewGameClick)
-    $('#word', this.container).on('change', this.handleWordInputChange)
+    $('#word', this.container).on('propertychange change click keyup input paste', this.handleWordInputChange)
     $('#input-form', this.container).on('submit', this.handleInputFormSubmit)
 
     // Create child components
@@ -170,21 +173,18 @@ class Main {
   updateChildren() {
     if (this.boardEl) {
       this.boardEl.setBoard(this.board)
-      this.boardEl.render()
     }
 
     if (this.timerEl) {
-      this.timerEl.render()
+      this.timerEl.setTime(this.time)
     }
 
     if (this.scoreEl) {
       this.scoreEl.setScore(this.score)
-      this.scoreEl.render()
     }
 
     if (this.wordListEl) {
       this.wordListEl.setWords(this.words)
-      this.wordListEl.render()
     }
   }
 
@@ -203,7 +203,9 @@ class Main {
    */
 
   handleWordInputChange(event) {
-    console.log(event);
+    (!!$(this).val()) 
+      ? $('#input-submit').prop('disabled', null)
+      : $('#input-submit').prop('disabled', 'disabled')
   }
 
 

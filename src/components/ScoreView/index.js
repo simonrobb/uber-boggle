@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import view from './index.handlebars'
 import styles from './style.css'
 
@@ -14,7 +15,17 @@ class ScoreView {
   }
 
   setScore(score) {
+    const oldScore = this.score
     this.score = score
+    this.render()
+
+    // Animate
+    if (oldScore !== score) {
+      const icon = $('i', this.container)
+      icon.addClass(styles.tada)
+      console.log('adding class', styles.tada, icon)
+      setTimeout(() => icon.removeClass(styles.tada), 1000)
+    }
   }
 
   render() {
