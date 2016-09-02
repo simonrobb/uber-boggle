@@ -1,12 +1,19 @@
-<h1>Boggle</h1>
+<div class="{{styles.container}}">
+  <div class="{{styles.topBar}}">
+    <h1>Boggle</h1>
+    <div id="score" class="{{styles.right}}"></div>  
+  </div>
 
-<div id="board"></div>
+  <div id="board"></div>
 
-<div>
-  <button id="new-game" type="button">New game</button>
-</div>
+  <div>
+    <button id="new-game" type="button">New game</button>
+  </div>
 
-<div>
-  <input id="word" type="text" />
-  <button id="submit-word" type="button">Submit word</button>
+  <form id="input-form">
+    <input id="word" type="text" />
+    <button type="submit">Submit word</button>
+  </form>
+
+  <div id="word-list"></div>
 </div>

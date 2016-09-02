@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import Words from '../../components/Words'
+import ScoreView from '../../components/ScoreView'
 import BoardView from '../../components/BoardView'
+import WordListView from '../../components/WordListView'
 import { Board, BoardIndex } from '../../components/Board'
 
 import view from './index.handlebars'
@@ -17,7 +19,7 @@ class Main {
 
     // Bind event handler to the context of this class
     this.handleNewGameClick = this.handleNewGameClick.bind(this)
-    this.handleSubmitWordClick = this.handleSubmitWordClick.bind(this)
+    this.handleInputFormSubmit = this.handleInputFormSubmit.bind(this)
 
     // Initialize with a new game 
     this.newGame()
@@ -32,6 +34,8 @@ class Main {
   newGame() {
     this.generateBoard()
     this.resetTimer()
+    this.resetScore()
+    this.resetWords()
     this.updateChildren()
   }
 
@@ -50,7 +54,67 @@ class Main {
    */
 
   resetTimer() {
+    this.time = 0
+  }
 
+
+  /**
+   * Reset the game score
+   */
+
+  resetScore() {
+    this.score = 0
+  }
+
+
+  /**
+   * Reset the word list
+   */
+
+  resetWords() {
+    this.words = []
+  }
+
+
+  /**
+   * 
+   */
+
+  addWord(word) {
+    this.words.push(word)
+    this.score += word.length
+  }
+
+
+  /**
+   * 
+   */
+
+  submitWord(word) {
+    const callback = (err, word) => {
+      $('#word').val('').focus()
+
+      if (err) {
+        return alert(err)
+      }
+
+      this.addWord(word)
+      this.updateChildren()
+    }
+
+    if (!this.board.validateWord(word)) {
+      return callback(`Board does not contain "${word}"`)
+    }
+
+    Words
+      .check(word)
+      .then(valid => {
+        if (!valid) {
+          return callback(`"${word}" is not a word`)
+        }
+
+        callback(null, word)
+      })
   }
 
 
@@ -70,10 +134,12 @@ class Main {
 
     // Attach events
     $('#new-game', this.container).on('click', this.handleNewGameClick)
-    $('#submit-word', this.container).on('click', this.handleSubmitWordClick)
+    $('#input-form', this.container).on('submit', this.handleInputFormSubmit)
 
     // Create child components
     this.boardEl = new BoardView(this.board, $('#board', this.container))
+    this.scoreEl = new ScoreView(this.score, $('#score', this.container))
+    this.wordListEl = new WordListView(this.words, $('#word-list', this.container))
   }
 
 
@@ -83,12 +149,22 @@ class Main {
 
   updateChildren() {
     if (this.boardEl) {
-      this.boardEl.setConfig(this.board)
+      this.boardEl.setBoard(this.board)
       this.boardEl.render()
     }
 
-    if (this.timer) {
+    if (this.timerEl) {
+      this.timerEl.render()
+    }
 
+    if (this.scoreEl) {
+      this.scoreEl.setScore(this.score)
+      this.scoreEl.render()
+    }
+
+    if (this.wordListEl) {
+      this.wordListEl.setWords(this.words)
+      this.wordListEl.render()
     }
   }
 
@@ -103,17 +179,13 @@ class Main {
 
 
   /**
-   * When the submit word button is clicked
+   * When the input form is submitted
    */
 
-  handleSubmitWordClick() {
-    const word = $('#word', this.container).val()
-    console.log(this.board.validateWord(word))
-    /* Words
-      .check(word)
-      .then(isValid => {
-        console.log(isValid)
-      }) */
+  handleInputFormSubmit(event) {
+    event.preventDefault()
+    const word = $('#word', this.container).val() 
+    this.submitWord(word)
   }
 }
 

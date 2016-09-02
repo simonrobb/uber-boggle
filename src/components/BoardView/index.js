@@ -7,14 +7,14 @@ import styles from './style.css'
  */
 
 class BoardView {
-  constructor(config, container) {
-    this.config = config
+  constructor(board, container) {
+    this.board = board
     this.container = container
     this.render()
   }
 
-  setConfig(config) {
-    this.config = config
+  setBoard(board) {
+    this.board = board
   }
 
   render() {

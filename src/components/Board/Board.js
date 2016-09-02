@@ -9,6 +9,8 @@ class Board {
 
   /**
    * Generate a random board configuration
+   * 
+   * @return null
    */
 
   generate() {
@@ -23,24 +25,9 @@ class Board {
 
 
   /**
-   * Find the positions of a letter
-   */
-
-  findIndicesofLetter(letter, availableIndices = null) {
-    const indices = []
-    this.rows.forEach((row, i) => {
-      row.forEach((l, j) => {
-        if (l == letter) {
-          indices.push(new BoardIndex(i, j))
-        }
-      })
-    })
-    return indices
-  }
-
-
-  /**
    * Get the full set of indices for this board
+   * 
+   * @return Array
    */
 
   getAllIndices() {
@@ -57,6 +44,8 @@ class Board {
   /**
    * Get the indices of letters around a given index 
    * that are available to be used
+   * 
+   * @return Array
    */
 
   getAvailableLetterIndices(index) {
@@ -75,6 +64,16 @@ class Board {
     return indices
   }
 
+
+  /**
+   * Test if the provided letter can be found in the available 
+   * indices surrounding the provided current board index
+   * All the board is considered available if no currentIndex
+   * param is provided
+   * 
+   * @return Array The successfully matched indices
+   */
+
   testMove(letter, currentIndex = null) {
     const availableIndices = currentIndex 
       ? this.getAvailableLetterIndices(currentIndex)
@@ -82,21 +81,34 @@ class Board {
     return availableIndices.filter(index => this.rows[index.row][index.column] === letter)
   }
 
+
+  /**
+   * Recurses through the letters of the provided word,
+   * testing if each can be found on the board within
+   * the confines of the game rules
+   * 
+   * @return boolean
+   */
+
   recurse(word, currentIndex = null) {
+    // Test if the next letter of the word can be found
+    // in the tiles surrounding the provided current board index
     const indices = this.testMove(word.charAt(0), currentIndex)
 
-    // There is no next move for this index/letter
+    // The letter couldn't be found in the available board indices
+    // This search tree is a failure
     if (!indices.length) {
       return false
     }
 
     // The word is fully matched
+    // This search tree is a success
     const remaining = word.substring(1)
     if (!remaining.length) {
       return true
     }
 
-    // Iterate through next moves and recurse
+    // Iterate through next search branches and test the next letter
     return indices
       .map(index => this.recurse(remaining, index))
       .reduce((prev, curr) => (prev || curr), false)
@@ -105,6 +117,8 @@ class Board {
 
   /**
    * Validate a word against the board configuration
+   * 
+   * @return boolean
    */
 
   validateWord(word) {
