@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import Words from '../../components/Words'
+import Dictionary from '../../components/Dictionary'
 import TimerView from '../../components/TimerView'
 import ScoreView from '../../components/ScoreView'
 import BoardView from '../../components/BoardView'
@@ -160,11 +160,21 @@ class Main {
       this.updateChildren()
     }
 
+    // Normalise word
+    word = word.toLowerCase()
+
+    // Check if the word has already been found
+    if (this.words.indexOf(word) !== -1) {
+      return callback(`"${word}" has already been found`)
+    }
+
+    // Check the word exists on the board
     if (!this.board.validateWord(word)) {
       return callback(`Board does not contain "${word}"`)
     }
 
-    Words
+    // Check against the dictionary API
+    Dictionary
       .check(word)
       .then(valid => {
         if (!valid) {

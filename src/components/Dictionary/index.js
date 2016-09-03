@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-class Words {
+class Dictionary {
 
   /**
    * Generate the api check url for a given word query
@@ -16,7 +16,7 @@ class Words {
    */
 
   static check(word) {
-    const url = Words.getWordCheckUrl(word)
+    const url = Dictionary.getWordCheckUrl(word)
 
     const p = new Promise((resolve, reject) => {
       $.ajax({
@@ -28,7 +28,7 @@ class Words {
       })
     })
 
-    return p.then(Words.onCheckWordSuccess)
+    return p.then(Dictionary.onCheckWordSuccess)
   }
 
 
@@ -37,7 +37,7 @@ class Words {
    */
 
   static onCheckWordSuccess(response) {
-    const result = Words.getResultFromApiResponse(response)
+    const result = Dictionary.getResultFromApiResponse(response)
     return result
   }
 
@@ -61,4 +61,4 @@ class Words {
   }
 }
 
-export default Words
+export default Dictionary
