@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import Words from '../../components/Words'
+import TimerView from '../../components/TimerView'
 import ScoreView from '../../components/ScoreView'
 import BoardView from '../../components/BoardView'
 import WordListView from '../../components/WordListView'
@@ -15,19 +16,21 @@ import logo from './logo.svg'
  * The main boggle view
  */
 
-const GAME_LENGTH = 10
+const GAME_LENGTH = 60
 
 class Main {
   constructor(container) {
     this.container = container
 
     // Bind event handler to the context of this class
+    this.handleTimer = this.handleTimer.bind(this)
     this.handleNewGameClick = this.handleNewGameClick.bind(this)
     this.handleInputFormSubmit = this.handleInputFormSubmit.bind(this)
 
     // Initialize
     this.dirty = false
     this.gameActive = false
+    this.time = 0
     this.score = 0
     this.render()
   }
@@ -75,7 +78,7 @@ class Main {
 
   resetTimer() {
     this.time = GAME_LENGTH
-    setTimeout(() => this.endGame(), GAME_LENGTH * 1000)
+    this.timer = setInterval(this.handleTimer, 1000)
   }
 
 
@@ -103,6 +106,31 @@ class Main {
 
   resetWordInput() {
     $('#word').val('').focus()
+  }
+
+
+  /**
+   * Handle the game timer firing
+   */
+
+  handleTimer() {
+    // Reduce the time on the clock
+    this.time--;
+
+    // Update the timer element
+    if (this.timerEl) {
+      this.timerEl.setTime(this.time)        
+    }
+
+    // End the game if time reaches zero
+    if (this.time === 0) {
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+      
+      this.endGame()
+    }
   }
 
 
@@ -177,6 +205,7 @@ class Main {
 
     // Create child components
     this.boardEl = new BoardView(this.board, $('#board', this.container))
+    this.timerEl = new TimerView(this.time, $('#time', this.container))
     this.scoreEl = new ScoreView(this.score, $('#score', this.container))
     this.wordListEl = new WordListView(this.words, $('#word-list', this.container))
   }

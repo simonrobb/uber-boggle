@@ -1,24 +1,21 @@
 <div class="{{styles.container}}">
   <div class="{{styles.topBar}}">
     <h1><img src="{{logo}}" /></h1>
-    <div id="score" class="{{styles.right}}"></div>  
+    <div id="time" class="{{styles.right}} {{styles.gameActiveOnly}}"></div>  
+    <div id="score" class="{{styles.gameActiveOnly}}"></div>  
   </div>
 
-  <div class="longform {{styles.gameInactiveOnly}}">
+  <div class="longform {{styles.gameInactiveOnly}} {{styles.placeholder}}">
     {{#if controller.dirty}}
       <h2>Nice work!</h2>
       <p>You found <strong>{{controller.words.length}}</strong> words and scored <strong>{{controller.score}}</strong> points.</p>
       <p>Think you can do better?</p>
-      <p>
-        <button id="new-game" type="button">Play again!</button>
-      </p>
+      <button id="new-game" type="button">Play again!</button>
     {{else}}
       <h2>Time to play boggle!</h2>
       <p>You have 60 seconds to find as many words as you can.</p>
       <p>Type a word and press the enter key. Words can only be entered once and must be real English words!</p>
-      <p>
-        <button id="new-game" type="button">Start</button>
-      </p>
+      <button id="new-game" type="button">Start playing!</button>
     {{/if}}
       
   </div>

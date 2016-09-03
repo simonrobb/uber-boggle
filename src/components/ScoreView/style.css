@@ -1,6 +1,7 @@
 .score {
   display: flex;
   align-items: center;
+  margin-left: 20px;
 
   i {
     font-size: 18px;
@@ -10,7 +11,7 @@
     &.tada {
       -webkit-animation: tada 1s;
       animation: tada 1s;
-      color: #e13034;
+      color: #19C595;
     }
   }
 }

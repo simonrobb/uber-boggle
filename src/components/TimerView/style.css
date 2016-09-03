@@ -1,0 +1,14 @@
+.time {
+  display: flex;
+  align-items: center;
+
+  &.red {
+    color: #e13034;
+  }
+
+  i {
+    font-size: 18px;
+    margin-right: 5px;
+    color: rgba(0,0,0,0.3);
+  }
+}
