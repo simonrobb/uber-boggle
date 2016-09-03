@@ -1,8 +1,7 @@
 .board {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 400px;
+  width: 400px;
   height: 400px;
   background: white;
   border: 1px solid #ccc;
@@ -27,6 +26,19 @@
 
     & + .tile {
       border-left: 1px solid rgba(0,0,0,0.08);
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .board {
+    width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .tile {
+      font-size: 24px;
     }
   }
 }
