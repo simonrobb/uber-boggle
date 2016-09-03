@@ -48,7 +48,7 @@ class Board {
    * @return Array
    */
 
-  getAvailableLetterIndices(index) {
+  getAvailableLetterIndices(index, usedIndices) {
     let indices = []
 
     indices.push(index.add(-1, -1))
@@ -59,7 +59,15 @@ class Board {
     indices.push(index.add(1, -1))
     indices.push(index.add(1, 0))
     indices.push(index.add(1, 1))
-    indices = indices.filter(index => !!index)
+    
+    // Filter out indices which are off the board (null)
+    // and have been used
+    indices = indices
+      .filter(index => !!index)
+      .filter(index => !usedIndices.find(i => 
+        (i.row == index.row) &&
+        (i.column == index.column)
+      ))
 
     return indices
   }
@@ -74,9 +82,9 @@ class Board {
    * @return Array The successfully matched indices
    */
 
-  testMove(letter, currentIndex = null) {
+  testMove(letter, usedIndices = [], currentIndex = null) {
     const availableIndices = currentIndex 
-      ? this.getAvailableLetterIndices(currentIndex)
+      ? this.getAvailableLetterIndices(currentIndex, usedIndices)
       : this.getAllIndices()
     return availableIndices.filter(index => this.rows[index.row][index.column] === letter)
   }
@@ -90,10 +98,10 @@ class Board {
    * @return boolean
    */
 
-  recurse(word, currentIndex = null) {
+  recurse(word, usedIndices = [], currentIndex = null) {
     // Test if the next letter of the word can be found
     // in the tiles surrounding the provided current board index
-    const indices = this.testMove(word.charAt(0), currentIndex)
+    const indices = this.testMove(word.charAt(0), usedIndices, currentIndex)
 
     // The letter couldn't be found in the available board indices
     // This search tree is a failure
@@ -109,8 +117,14 @@ class Board {
     }
 
     // Iterate through next search branches and test the next letter
+    // We add this index to the list of used indices, but also make
+    // a copy in order to make sure it doesn't affect other search
+    // branches.
     return indices
-      .map(index => this.recurse(remaining, index))
+      .map(index => {
+        const used = [...usedIndices, index]
+        return this.recurse(remaining, used, index)
+      })
       .reduce((prev, curr) => (prev || curr), false)
   }
 
