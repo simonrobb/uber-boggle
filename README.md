@@ -6,7 +6,7 @@ Clone the repo to your machine and use `npm install` to install dependencies.
 
 To run the app in development mode, use `npm run start` from the root directory and point your browser at `http://localhost:8080` to play. 
 
-To build a distribution version of the app, use `npm run build` from the root directory. The build files can be found in `/docs`. Serve this directory up using a static http server such as `http-server` if desired.
+To build a distribution version of the app, use `npm run build` from the root directory. The build files can be found in `/build`. Serve this directory up using a static http server such as `http-server` if desired.
 
 
 ## Technologies

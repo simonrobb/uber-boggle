@@ -4,7 +4,7 @@ const options = {
   nodeModulesPath: path.join(__dirname, '../node_modules'),
   indexHtmlPath: path.join(__dirname, '../index.html'),
   faviconPath: path.join(__dirname, '../favicon.png'),
-  buildPath: path.join(__dirname,'../docs'),
+  buildPath: path.join(__dirname,'../build'),
   isDev: process.env.NODE_ENV !== "production"
 }
 
