@@ -8,4 +8,8 @@ const options = {
   isDev: process.env.NODE_ENV !== "production"
 }
 
-module.exports = require('./webpack.config.dev')(options)
+if (options.isDev) {
+  module.exports = require('./webpack.config.dev')(options)
+} else {
+  module.exports = require('./webpack.config.prod')(options)
+}

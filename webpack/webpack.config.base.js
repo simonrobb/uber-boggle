@@ -33,10 +33,10 @@ module.exports = options => ({
 			{
 				test: /\.css$/,
 				include: options.srcPath,
-				[!options.isDev ? 'loader' : 'loaders']: !options.isDev ? ExtractTextPlugin.extract(
+				'loaders': !options.isDev ? [
 					'style-loader',
 					'css-loader?modules&importLoaders=1!postcss-loader'
-				) : [
+				] : [
 					'style-loader?sourceMaps', 
 					'css-loader?modules&importLoaders=1',
 					'postcss-loader',
