@@ -16,7 +16,7 @@
       }
     },
     "build": {
-      "command": "rm -rf build/ && webpack --config webpack/webpack.config.js --color --progress",
+      "command": "rm -rf docs/ && webpack --config webpack/webpack.config.js --color --progress",
       "env": {
         "NODE_ENV": "production"
       }
