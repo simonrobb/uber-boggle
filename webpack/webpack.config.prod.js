@@ -15,7 +15,7 @@ module.exports = (options) => Object.assign(baseConfig(options), {
     path: options.buildPath,
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
-    publicPath: '/'
+    publicPath: ''
   },
   plugins: [
     new HtmlWebpackPlugin({
