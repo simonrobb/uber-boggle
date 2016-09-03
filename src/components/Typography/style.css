@@ -1,0 +1,32 @@
+body,
+input,
+button {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+p {
+  font-size: 16px;
+}
+
+strong {
+  font-weight: 600;
+}
+
+:global(.longform) {
+  h2 {
+    margin-top: 20px;
+  }
+
+  p {
+    line-height: 24px;
+    margin-top: 16px;
+  }
+}

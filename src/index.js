@@ -1,6 +1,10 @@
 import $ from 'jquery'
 import Main from './containers/Main'
 
+import styles from './style.css'
+import typographyStyles from './components/Typography/style.css'
+import formStyles from './components/Form/style.css'
+
 /**
  * Application entry point
  * 

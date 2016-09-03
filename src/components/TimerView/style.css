@@ -3,7 +3,7 @@
   align-items: center;
 
   &.red {
-    color: #e13034;
+    color: $red;
   }
 
   i {
