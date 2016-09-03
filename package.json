@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/simonrobb/uber-boggle#readme",
   "dependencies": {
-    "axios": "^0.14.0",
     "babel-polyfill": "^6.9.1",
     "handlebars": "^4.0.5",
     "jquery": "^3.1.0",
