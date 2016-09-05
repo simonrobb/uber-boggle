@@ -48,7 +48,7 @@ class Board {
    * @return Array
    */
 
-  getAvailableLetterIndices(index, usedIndices) {
+  getAvailableIndices(index, usedIndices = []) {
     let indices = []
 
     indices.push(index.add(-1, -1))
@@ -84,7 +84,7 @@ class Board {
 
   testMove(letter, usedIndices = [], currentIndex = null) {
     const availableIndices = currentIndex 
-      ? this.getAvailableLetterIndices(currentIndex, usedIndices)
+      ? this.getAvailableIndices(currentIndex, usedIndices)
       : this.getAllIndices()
     return availableIndices.filter(index => this.rows[index.row][index.column] === letter)
   }

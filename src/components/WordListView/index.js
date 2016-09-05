@@ -10,7 +10,6 @@ class WordListView {
   constructor(words, container) {
     this.words = words
     this.container = container
-    this.render()
   }
 
   setWords(words) {

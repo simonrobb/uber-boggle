@@ -11,16 +11,17 @@ class ScoreView {
   constructor(score, container) {
     this.score = score
     this.container = container
-    this.render()
   }
 
   setScore(score) {
     const oldScore = this.score
     this.score = score
     this.render()
+    this.animateIfUpdated(oldScore, score)
+  }
 
-    // Animate
-    if (oldScore !== score) {
+  animateIfUpdated(oldScore, newScore) {
+    if (oldScore !== newScore) {
       const icon = $('i', this.container)
       icon.addClass(styles.tada)
       setTimeout(() => icon.removeClass(styles.tada), 1000)

@@ -11,7 +11,6 @@ class TimerView {
   constructor(time, container) {
     this.time = time
     this.container = container
-    this.render()
   }
 
   setTime(time) {

@@ -10,7 +10,6 @@ class BoardView {
   constructor(board, container) {
     this.board = board
     this.container = container
-    this.render()
   }
 
   setBoard(board) {

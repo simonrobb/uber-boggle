@@ -15,5 +15,6 @@ import formStyles from './components/Form/style.css'
  */
 
 $(document).ready(() => {
-    const main = new Main($('#root')) 
+    const main = new Main($('#root'))
+    main.render() 
 })

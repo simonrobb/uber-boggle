@@ -32,7 +32,6 @@ class Main {
     this.gameActive = false
     this.time = 0
     this.score = 0
-    this.render()
   }
 
 
@@ -149,28 +148,17 @@ class Main {
    */
 
   submitWord(word) {
-    const callback = (err, word) => {
-      this.resetWordInput()
-
-      if (err) {
-        return alert(err)
-      }
-
-      this.addWord(word)
-      this.updateChildren()
-    }
-
     // Normalise word
     word = word.toLowerCase()
 
     // Check if the word has already been found
     if (this.words.indexOf(word) !== -1) {
-      return callback(`"${word}" has already been found`)
+      return this.submitWordCallback(`"${word}" has already been found`)
     }
 
     // Check the word exists on the board
     if (!this.board.validateWord(word)) {
-      return callback(`Board does not contain "${word}"`)
+      return this.submitWordCallback(`Board does not contain "${word}"`)
     }
 
     // Check against the dictionary API
@@ -178,11 +166,27 @@ class Main {
       .check(word)
       .then(valid => {
         if (!valid) {
-          return callback(`"${word}" is not a word`)
+          return this.submitWordCallback(`"${word}" is not a word`)
         }
 
-        callback(null, word)
+        this.submitWordCallback(null, word)
       })
+  }
+
+
+  /**
+   * When 
+   */
+
+  submitWordCallback(err, word) {
+    this.resetWordInput()
+
+    if (err) {
+      return alert(err)
+    }
+
+    this.addWord(word)
+    this.updateChildren()
   }
 
 
@@ -213,11 +217,16 @@ class Main {
     $('#word', this.container).on('propertychange change click keyup input paste', this.handleWordInputChange)
     $('#input-form', this.container).on('submit', this.handleInputFormSubmit)
 
-    // Create child components
+    // Create child components and render
     this.boardEl = new BoardView(this.board, $('#board', this.container))
     this.timerEl = new TimerView(this.time, $('#time', this.container))
     this.scoreEl = new ScoreView(this.score, $('#score', this.container))
     this.wordListEl = new WordListView(this.words, $('#word-list', this.container))
+
+    this.boardEl.render()
+    this.timerEl.render()
+    this.scoreEl.render()
+    this.wordListEl.render()
   }
 
 
